@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 LLVM_VERSION=8.0.1
 sourcefiles="llvm-${LLVM_VERSION}.src cfe-${LLVM_VERSION}.src compiler-rt-${LLVM_VERSION}.src"
 sourcefiles="${sourcefiles} libcxx-${LLVM_VERSION}.src libcxxabi-${LLVM_VERSION}.src"
@@ -14,10 +16,11 @@ curdir=`pwd`
 cd llvm-src-${LLVM_VERSION}
 
 rm -rf ${llvm_build_root}
+mkdir ${llvm_build_root}
 
 for base in ${sourcefiles}
 do
-  if [ ! -f "${base}.tar.xz"]; then wget -t inf -c http://llvm.org/releases/${LLVM_VERSION}/${base}.tar.xz; fi
+  echo ${base}
   tar xvf ${base}.tar.xz
 done
 
